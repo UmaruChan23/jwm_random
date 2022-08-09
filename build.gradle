@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'war'
 }
 
 group = 'com.ctf'
@@ -38,6 +39,15 @@ bootJar {
     enabled = false
 }
 
-jar {
+war {
     enabled = true
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes(
+                'Main-Class': 'com.ctf.jwm_random_ctf.JwmRandomCtfApplication'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }

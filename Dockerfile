@@ -8,13 +8,12 @@ COPY --chown=gradle:gradle . /home/gradle/src
 USER root
 RUN chown -R gradle /home/gradle/src
 
-RUN gradle build || return 0
 COPY . .
 RUN gradle clean build
 
 # actual container
 FROM openjdk:17-oracle
-ENV ARTIFACT_NAME=jwm_random_ctf-0.0.1-SNAPSHOT.jar
+ENV ARTIFACT_NAME=jwm_random_ctf-0.0.1-SNAPSHOT.war
 ENV APP_HOME=/usr/app
 
 WORKDIR $APP_HOME
