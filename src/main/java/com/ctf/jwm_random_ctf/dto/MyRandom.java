@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Random;
 
 @Data
-public class MyRandom extends Random {
+public class MyRandom {
 
     private Random random1;
     private Random random2;
