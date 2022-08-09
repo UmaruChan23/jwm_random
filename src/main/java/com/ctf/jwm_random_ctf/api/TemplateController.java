@@ -30,6 +30,20 @@ public class TemplateController {
         this.randomService = userService;
     }
 
+    @GetMapping("/")
+    public String getMainPage(Model model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute("message", "");
+        if (request.getCookies() == null) {
+            response.addCookie(
+                    new Cookie(
+                            "id",
+                            Long.toHexString(new SecureRandom().nextLong() + System.currentTimeMillis())
+                    )
+            );
+        }
+        return "login";
+    }
+
     @GetMapping("/login")
     public String getPage(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute("message", "");
