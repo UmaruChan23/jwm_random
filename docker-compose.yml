@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  web:
+    container_name: 'jwm_random'
+    image: 'random:0.1'
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
