@@ -18,6 +18,10 @@ html::before {
 
 html {
     background: linear-gradient(rgba(248, 255, 143, 0.4), rgba(255, 126, 126, 0.4));
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 body {
