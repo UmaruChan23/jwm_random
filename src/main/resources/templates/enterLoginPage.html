@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Восстановление пароля</title>
+    <link href="../static/css/login.css" th:href="@{/css/css.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="login_form">
+<h1>Для восстановления пароля введите имя пользователя</h1>
+<form th:action="@{/name}" method="post">
+    <p>[[${message} ? ${message} : '']]</p>
+    <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
+    <input type="submit" value="Отправить код"/>
+</form>
+</div>
+</body>
+</html>

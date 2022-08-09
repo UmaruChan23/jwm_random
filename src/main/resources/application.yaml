@@ -1,0 +1,15 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: heapdump,health
+  endpoint:
+    beans:
+      cache:
+        time-to-live: 0s
+
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true

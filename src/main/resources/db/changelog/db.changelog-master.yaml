@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-users-table.yaml # создание таблицы пользователей
+  - include:
+      file: db/changelog/changeset/create-roles-table.yaml # создание таблицы ролей
+  - include:
+      file: db/changelog/changeset/insert-role-admin.yaml # добавление роли админа
+  - include:
+      file: db/changelog/changeset/create-users-roles-table.yaml

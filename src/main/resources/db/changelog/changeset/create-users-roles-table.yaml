@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: CREATE-USERS
+      author: SweetBuddy
+      changes:
+        - createTable:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: user_id
+                  type: bigserial
+                  constraints:
+                    nullable: false
+              - column:
+                  name: roles_id
+                  type: bigserial
+                  constraints:
+                    nullable: false

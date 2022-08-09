@@ -1,0 +1,119 @@
+package com.ctf.jwm_random_ctf.api;
+
+import com.ctf.jwm_random_ctf.service.RandomService;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.SecureRandom;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+
+@Controller
+@RequestMapping("/")
+public class TemplateController {
+
+    private final RandomService randomService;
+
+    private String username = "";
+
+    public TemplateController(RandomService userService) {
+        this.randomService = userService;
+    }
+
+    @GetMapping("/login")
+    public String getPage(Model model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute("message", "");
+        if (request.getCookies() == null) {
+            response.addCookie(
+                    new Cookie(
+                            "id",
+                            Long.toHexString(new SecureRandom().nextLong() + System.currentTimeMillis())
+                    )
+            );
+        }
+        return "login";
+    }
+
+    @GetMapping("/name")
+    public String getNamePage(Model model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute("message", "");
+        if (request.getCookies() == null) {
+            response.addCookie(
+                    new Cookie(
+                            "id",
+                            Long.toHexString(new SecureRandom().nextLong() + System.currentTimeMillis())
+                    )
+            );
+        }
+        return "enterLoginPage";
+    }
+
+    @GetMapping("/code")
+    public String getCodePage(Model model, HttpServletRequest request, HttpServletResponse response) {
+        model.addAttribute("message", "");
+        if (request.getCookies() == null) {
+            response.addCookie(
+                    new Cookie(
+                            "id",
+                            Long.toHexString(new SecureRandom().nextLong() + System.currentTimeMillis())
+                    )
+            );
+        }
+        return "enterLoginPage";
+    }
+
+    @PostMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("message", "Неверный логин или пароль!");
+        return "login";
+    }
+
+
+
+    @PostMapping("/name")
+    public String getCode(Model model,
+                          String username) {
+        if (username.equals("Admin")) {
+            this.username = username;
+            return "reset";
+        }
+        model.addAttribute("message", "Пользователь с таким именем не найден!");
+        return "enterLoginPage";
+    }
+
+    @PostMapping("/code")
+    public String getCode(Model model,
+                          String password,
+                          HttpServletRequest request) throws ExecutionException, IOException {
+        var cookie = request.getCookies()[0];
+
+        if (Objects.equals(this.username, "Admin")) {
+
+            try {
+
+                if (randomService.generateNewPassword(cookie) == Long.parseLong(password)) {
+                    model.addAttribute("flag", Files.readString(Path.of("/flag.txt")));
+                    return "main";
+                }
+                model.addAttribute("message", "Введён неверный код! На Ваш номер был отправлен новый код");
+                return "reset";
+            } catch (NumberFormatException ex) {
+                model.addAttribute("message", "Введён неверный код! На Ваш номер был отправлен новый код");
+                return "reset";
+
+            }
+
+        }
+        return "enterLoginPage";
+    }
+}
