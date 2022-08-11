@@ -10,19 +10,34 @@
 }
 
 html::before {
-    content: "BANK.online:signIN";
+    content: "First Stole Bank";
     position: fixed;
-    font: italic 700 30px "Trebushet MS";
+    font: italic 700 25px "Trebushet MS";
+    border-bottom: double rgba(27, 0, 35, 0.6);
+    color: rgba(27, 0, 35, 0.6);
     margin: 0 10px;
 }
 
+body::before {
+    content: "FSB";
+    color: rgb(37, 0, 48);
+    position: fixed;
+    right: 15px;
+    font: italic 700 35px / 30px "Trebushet MS";
+    padding: 5px 15px;
+    border: 5px double rgb(37, 0, 48);
+    border-top: 0;
+    border-left: 0;
+    border-radius: 70px / 30px;
+}
+
 html {
-    background: linear-gradient(rgba(248, 255, 143, 0.4), rgba(255, 126, 126, 0.4));
+    background: linear-gradient(rgba(248, 255, 143, 0.4), rgba(255, 126, 126, 0.4)) fixed;
+    height: 100vh;
 }
 
 body {
     position: relative;
-    min-height: 100vh;
 }
 
 .login_form {
@@ -58,11 +73,15 @@ form {
 
 h1 {
     width: 505px;
-    /* margin-bottom: 40px; */
     font: 400 40px Impact;
     color: rgb(0, 39, 39);
     text-align: center;
     text-shadow: 10px 10px 20px rgba(255, 255, 255, 0.6);
+}
+
+p {
+    position: relative;
+    font: 400 22px / 30px Arial serif;
 }
 
 a {
@@ -73,14 +92,10 @@ a {
     color: rgb(51, 51, 51);
 }
 
-/* input {
-    margin-bottom: 10px;
-} */
-
 input[type=text],
 input[type=password] {
     display: block;
-    width: 90%;
+    width: 450px;
     height: 40px;
     border: 3px double rgb(0, 0, 0);
     border-radius: 5px;
@@ -91,8 +106,7 @@ input[type=password] {
 
 button,
 input[type=submit] {
-    width: 50%;
-    min-width: 202px;
+    width: 245px;
     display: block;
     /* margin-bottom: 10px; */
 
@@ -108,12 +122,12 @@ input[type=submit] {
     color: rgb(18, 0, 42);
     display: block;
     text-align: center;
-    margin: 0em;
+    margin: 0;
     font: 100 25px "Comic Sans MS";
     cursor: pointer;
 }
 
-button {
+button {    
     margin-bottom: 15px;
 }
 

@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="../static/css/login.css" th:href="@{/css/css.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="css.css">
+    <link href="../static/css/login.css" th:href="@{/css/login.css}" rel="stylesheet" />
 </head>
+
 <body>
-<div class="login_form">
-<h1>[[${flag} ? ${flag} : '']]</h1>
-</div>
+    <div class="login_form">
+        <h1>FLAG{}</h1>
+    </div>
 </body>
+
 </html>
