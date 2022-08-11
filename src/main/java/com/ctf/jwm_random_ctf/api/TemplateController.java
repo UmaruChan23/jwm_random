@@ -41,7 +41,7 @@ public class TemplateController {
                     )
             );
         }
-        return "login";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
