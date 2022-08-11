@@ -85,7 +85,7 @@ public class TemplateController {
         }
         var cookie = request.getCookies()[0];
         randomService.generateNewPassword(cookie);
-        return "enterLoginPage";
+        return "codePage";
     }
 
     @PostMapping("/login")
@@ -101,7 +101,7 @@ public class TemplateController {
                           String username) {
         if (username.equals("Admin")) {
             this.username = username;
-            return "codePage";
+            return "redirect:/code";
         }
         model.addAttribute("message", "Пользователь с таким именем не найден!");
         return "enterLoginPage";
