@@ -58,8 +58,8 @@ public class TemplateController {
         return "login";
     }
 
-    @GetMapping("/name")
-    public String getNamePage(Model model, HttpServletRequest request, HttpServletResponse response) {
+    @GetMapping("/reset")
+    public String getResetPage(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute("message", "");
         if (request.getCookies() == null) {
             response.addCookie(
@@ -73,7 +73,7 @@ public class TemplateController {
     }
 
     @GetMapping("/code")
-    public String getCodePage(Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String getCodePage(Model model, HttpServletRequest request, HttpServletResponse response) throws ExecutionException {
         model.addAttribute("message", "");
         if (request.getCookies() == null) {
             response.addCookie(
@@ -83,6 +83,8 @@ public class TemplateController {
                     )
             );
         }
+        var cookie = request.getCookies()[0];
+        randomService.generateNewPassword(cookie);
         return "enterLoginPage";
     }
 
@@ -94,12 +96,12 @@ public class TemplateController {
 
 
 
-    @PostMapping("/name")
+    @PostMapping("/reset")
     public String getCode(Model model,
                           String username) {
         if (username.equals("Admin")) {
             this.username = username;
-            return "reset";
+            return "codePage";
         }
         model.addAttribute("message", "Пользователь с таким именем не найден!");
         return "enterLoginPage";
@@ -120,10 +122,10 @@ public class TemplateController {
                     return "main";
                 }
                 model.addAttribute("message", "Введён неверный код! На Ваш номер был отправлен новый код");
-                return "reset";
+                return "codePage";
             } catch (NumberFormatException ex) {
                 model.addAttribute("message", "Введён неверный код! На Ваш номер был отправлен новый код");
-                return "reset";
+                return "codePage";
 
             }
 

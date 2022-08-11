@@ -19,7 +19,7 @@ ENV APP_HOME=/usr/app
 WORKDIR $APP_HOME
 COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME .
 
-RUN echo "bsc{1Am_nOt_a_Fr0Nt_m4NK3y}" > /flag.txt
+RUN echo "bsc{Wh3Re_1S_mY_M0n3Y}" > /flag.txt
 RUN chmod 444 /flag.txt
 
 EXPOSE 8080
