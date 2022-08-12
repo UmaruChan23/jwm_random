@@ -2,11 +2,13 @@ package com.ctf.jwm_random_ctf.api;
 
 import com.ctf.jwm_random_ctf.service.RandomService;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +75,7 @@ public class TemplateController {
     }
 
     @GetMapping("/code")
-    public String getCodePage(Model model, HttpServletRequest request, HttpServletResponse response) throws ExecutionException {
+    public String getCodePage(Model model, HttpServletRequest request, HttpServletResponse response) {
         model.addAttribute("message", "");
         if (request.getCookies() == null) {
             response.addCookie(
@@ -83,8 +85,6 @@ public class TemplateController {
                     )
             );
         }
-        var cookie = request.getCookies()[0];
-        randomService.generateNewPassword(cookie);
         return "codePage";
     }
 
@@ -98,9 +98,12 @@ public class TemplateController {
 
     @PostMapping("/reset")
     public String getCode(Model model,
-                          String username) {
+                          HttpServletRequest request,
+                          String username) throws ExecutionException {
         if (username.equals("Admin")) {
             this.username = username;
+            var cookie = request.getCookies()[0];
+            randomService.generateNewPassword(cookie);
             return "redirect:/code";
         }
         model.addAttribute("message", "Пользователь с таким именем не найден!");
@@ -126,10 +129,11 @@ public class TemplateController {
             } catch (NumberFormatException ex) {
                 model.addAttribute("message", "Введён неверный код! На Ваш номер был отправлен новый код");
                 return "codePage";
-
             }
 
         }
         return "enterLoginPage";
     }
+
+
 }
